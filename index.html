@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VK NEXUS – Global Multi-Vendor Marketplace & Secure Payments</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase Official SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Google Translate Official Widget SDK -->
+    <srcipt="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Sinhala', sans-serif; top: 0px !important; }
+        .goog-te-banner-frame { display: none !important; }
+        .goog-te-gadget-simple {
+            background-color: #1e293b !important;
+            border: 1px solid #334155 !important;
+            padding: 4px 8px !important;
+            border-radius: 8px !important;
+            font-size: 12px !important;
+            color: #ffffff !important;
+        }
+        .goog-te-gadget-simple span { color: #ffffff !important; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-slate-950 text-white shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 space-x-3">
+                <div class="flex items-center space-x-2 cursor-pointer shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md">
+                        VK
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-tight text-white">VK <span class="text-sky-500">NEXUS</span></span>
+                        <p class="text-[9px] text-sky-400 font-bold tracking-widest uppercase">Secure Multi-Vendor Hub</p>
+                    </div>
+                </div>
+
+                <div class="hidden sm:flex flex-1 max-w-xl bg-white rounded-xl overflow-hidden p-1 shadow-inner">
+                    <input type="text" id="searchInput" placeholder="Search products, sellers, or verified services..." class="w-full px-3 py-2 text-xs text-slate-900 outline-none font-medium">
+                    <button type="button" onclick="handleSearch()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2 rounded-r-lg text-xs transition-all">
+                        🔍 Search
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-2 shrink-0">
+                    <div class="flex items-center space-x-1 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
+                        <span class="text-xs">🌐</span>
+                        <div id="google_translate_element"></div>
+                    </div>
+
+                    <button type="button" onclick="openModal('addProductModal')" class="px-3 py-2 text-xs font-bold text-slate-950 bg-sky-400 hover:bg-sky-500 rounded-xl shadow-sm transition-all hidden md:flex items-center space-x-1">
+                        <span>📦</span>
+                        <span>+ Free Product Listing</span>
+                    </button>
+
+                    <button type="button" onclick="openModal('registerModal')" class="px-3 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition-all flex items-center space-x-1">
+                        <span>🛡️</span>
+                        <span>Free Provider Portal</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border-t border-slate-800 text-xs font-bold text-slate-300 py-2.5 px-4 overflow-x-auto whitespace-nowrap">
+            <div class="max-w-7xl mx-auto flex space-x-6">
+                <a href="#products" class="hover:text-sky-400 transition-colors flex items-center space-x-1"><span>📦</span><span>Products & Secure Cards</span></a>
+                <a href="#services" class="hover:text-sky-400 transition-colors flex items-center space-x-1"><span>🛠️</span><span>Service Divisions</span></a>
+                <a href="#workers" class="hover:text-sky-400 transition-colors flex items-center space-x-1"><span>🛡️</span><span>Verified Providers</span></a>
+                <a href="#company-revenue" class="hover:text-sky-400 transition-colors flex items-center space-x-1"><span>📊</span><span>Company 5% Revenue Tracker</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-900 text-white py-12 lg:py-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            <div class="lg:col-span-2 space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-sky-500/10 border border-sky-500/30 text-sky-400 px-3.5 py-1.5 rounded-full text-xs font-bold">
+                    <span>⚡ 100% Free Listing & Supabase Cloud Auto-Save</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                    Secure Multi-Vendor Hub & <span class="text-sky-500">Encrypted Payments.</span>
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Sellers list products for free with gallery image upload, 5% commission tracking, and rating-based order priority.
+                </p>
+            </div>
+
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700 space-y-4 shadow-xl">
+                <h3 class="text-base font-bold text-sky-400">📈 Live Revenue Dashboard</h3>
+                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-700 space-y-2">
+                    <p class="text-xs text-slate-400">Total 5% Company Commission Earned:</p>
+                    <p id="totalCompanyRevenue" class="text-2xl font-black text-emerald-400">LKR 0.00</p>
+                </div>
+                <button type="button" onclick="openModal('addProductModal')" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl transition-all">
+                    + Free Product Listing
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS MARKETPLACE -->
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">📦</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Seller Products & Secure Checkout</h2>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Pay safely via encrypted cards or WhatsApp direct order processing.</p>
+            </div>
+            <button type="button" onclick="openModal('addProductModal')" class="mt-4 sm:mt-0 text-xs font-bold text-sky-600 hover:underline">
+                + Free Product Listing →
+            </button>
+        </div>
+
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <!-- SERVICE DIVISIONS -->
+    <section id="services" class="bg-white py-12 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Dedicated Service Divisions</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Each professional service operates in its own dedicated operational division.</p>
+            </div>
+            <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+        </div>
+    </section>
+
+    <!-- VERIFIED WORKERS -->
+    <section id="workers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900">Verified Providers (Sorted by Rating)</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Orders and priority aligned automatically based on customer ratings.</p>
+            </div>
+            <button type="button" onclick="openModal('registerModal')" class="mt-4 sm:mt-0 text-xs font-bold text-sky-600 hover:underline">
+                + Free Provider Registration →
+            </button>
+        </div>
+        <div id="workersGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <span class="text-xl font-black text-white">VK <span class="text-sky-500">NEXUS</span></span>
+            <p class="text-slate-400 max-w-lg mx-auto">100% Free listing for sellers and providers. Secure card payments and 5% commission deducted only upon successful sales.</p>
+            <p class="text-slate-300 font-bold">📞 Official Customer Care / WhatsApp: 0752278097</p>
+            <p class="text-slate-600 pt-4 border-t border-slate-900">© 2026 VK NEXUS. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP BUTTON -->
+    <button type="button" onclick="openWhatsApp('0752278097', 'Hello VK Nexus, I need assistance.')" class="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-xs transition-transform hover:scale-105">
+        <span class="text-base">💬</span>
+        <span class="hidden sm:inline">WhatsApp Helpdesk</span>
+    </button>
+
+    <!-- MODAL 1: FREE PRODUCT LISTING -->
+    <div id="addProductModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button type="button" onclick="closeModal('addProductModal')" class="absolute top-4 right-4 text-slate-400 font-bold">✕</button>
+            <h2 class="text-xl font-black text-slate-900 mb-1">Free Product Listing (Media Upload)</h2>
+            <p class="text-xs text-slate-500 mb-4">Choose product photo from your device gallery. 100% Free listing.</p>
+            <form onsubmit="handleAddProductSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Product Title *</label>
+                    <input type="text" id="prod-title" placeholder="e.g. Smart Watch / Headphones" required class="w-full p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Product Price (LKR) *</label>
+                    <input type="text" id="prod-price" placeholder="e.g. LKR 4,500 or 4500" required class="w-full p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Seller / Store Division Name *</label>
+                    <input type="text" id="prod-seller" placeholder="e.g. VK Tech Division" required class="w-full p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp Phone Number *</label>
+                    <input type="tel" id="prod-phone" placeholder="0752278097" required class="w-full p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Upload Product Photo from Gallery *</label>
+                    <input type="file" id="prod-file" accept="image/*" required class="w-full p-2.5 border rounded-xl text-xs bg-slate-50 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl flex items-start space-x-3">
+                    <input type="checkbox" id="prod-terms" required class="mt-0.5 w-4 h-4 text-sky-600 rounded border-slate-300 focus:ring-sky-500">
+                    <label for="prod-terms" class="text-xs text-slate-700 font-medium leading-relaxed">
+                        <span class="font-bold text-emerald-900">Zero Listing Fee & 5% Terms:</span> Listing is <span class="font-bold text-emerald-700">100% Free</span>. I agree that 5% commission is deducted only upon a successful sale.
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm shadow-md">
+                    Publish Product to Database
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: FREE PROVIDER REGISTRATION -->
+    <div id="registerModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+            <button type="button" onclick="closeModal('registerModal'); stopCamera();" class="absolute top-4 right-4 text-slate-400 font-bold">✕</button>
+            <h2 class="text-xl font-black text-slate-900 mb-1">Free Provider Division Registration</h2>
+            <p class="text-xs text-slate-500 mb-4">Register your profile for free with live camera verification.</p>
+            <form onsubmit="handleRegisterSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input type="text" id="reg-name" required placeholder="Full Name" class="p-3 border rounded-xl text-sm bg-slate-50">
+                    <input type="text" id="reg-nic" required placeholder="NIC Number" class="p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input type="tel" id="reg-phone" required placeholder="0752278097" class="p-3 border rounded-xl text-sm bg-slate-50">
+                    <input type="text" id="reg-skill" required placeholder="Profession / Division Name" class="p-3 border rounded-xl text-sm bg-slate-50">
+                </div>
+                <input type="text" id="reg-location" required placeholder="District / City" class="w-full p-3 border rounded-xl text-sm bg-slate-50">
+
+                <div class="border-2 border-dashed border-sky-300 rounded-2xl p-4 bg-sky-50/50 space-y-3">
+                    <label class="block text-xs font-bold text-sky-900">📸 Mandatory Live Camera Capture *</label>
+                    <div class="relative w-full h-44 bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center">
+                        <video id="webcamVideo" autoplay playsinline class="w-full h-full object-cover"></video>
+                        <canvas id="photoCanvas" class="hidden w-full h-full object-cover"></canvas>
+                        <div id="cameraOverlayText" class="absolute text-white text-xs bg-black/60 px-3 py-1 rounded-full font-bold">Click Start Camera</div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button type="button" onclick="startCamera()" class="flex-1 py-2 bg-slate-800 text-white text-xs font-bold rounded-xl">🎥 Start Camera</button>
+                        <button type="button" onclick="takeSnapshot()" class="flex-1 py-2 bg-emerald-600 text-white text-xs font-bold rounded-xl">📸 Capture</button>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl flex items-start space-x-3">
+                    <input type="checkbox" id="reg-terms" required class="mt-0.5 w-4 h-4 text-sky-600 rounded border-slate-300 focus:ring-sky-500">
+                    <label for="reg-terms" class="text-xs text-slate-700 font-medium leading-relaxed">
+                        <span class="font-bold text-emerald-900">Zero Registration Fee Terms:</span> Profile registration is <span class="font-bold text-emerald-700">100% Free</span>. I agree to the 5% commission structure on completed orders.
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-sky-600 text-white py-3.5 rounded-xl font-bold text-sm">Register Profile to Database</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT & SUPABASE LOGIC -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+        let _supabase = null;
+        if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'https://YOUR_PROJECT_ID.supabase.co') {
+            _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        let capturedImageData = null;
+        let videoStream = null;
+        let totalCompanyRevenue = 0;
+
+        let marketplaceProducts = [
+            { id: "p1", title: "Wireless Noise Cancelling Headphones", priceNum: 12500, price: "LKR 12,500", rating: 4.8, reviewsCount: 24, seller: "VK Tech Division", phone: "0752278097", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+            { id: "p2", title: "Handcrafted Scented Candle Pack", priceNum: 2200, price: "LKR 2,200", rating: 5.0, reviewsCount: 12, seller: "Nexus Crafts Division", phone: "0752278097", img: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400" },
+            { id: "p3", title: "Smart Fitness Tracker Watch", priceNum: 8900, price: "LKR 8,900", rating: 4.6, reviewsCount: 38, seller: "Global Imports Division", phone: "0752278097", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" }
+        ];
+
+        let globalServices = [
+            { id: "s1", img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=300", name: "Electrical Wiring Division", division: "Electrical Division" },
+            { id: "s2", img: "https://images.unsplash.com/photo-1505798577917-a65157d3320a?w=300", name: "Plumbing Services Division", division: "Plumbing Division" },
+            { id: "s3", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300", name: "House Painting Division", division: "Painting Division" },
+            { id: "s4", img: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?w=300", name: "Masonry Construction Division", division: "Construction Division" }
+        ];
+
+        let verifiedWorkers = [
+            { id: "w1", name: "K. Perera", role: "Master Electrician", rating: 4.9, location: "Colombo 03", phone: "0752278097", image_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" },
+            { id: "w2", name: "S. Ramanathan", role: "Senior Plumber", rating: 4.5, location: "Jaffna Town", phone: "0752278097", image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" },
+            { id: "w3", name: "M. Silva", role: "Masonry Specialist", rating: 4.8, location: "Kandy", phone: "0752278097", image_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300" }
+        ];
+
+        async function loadFromSupabase() {
+            if (!_supabase) return;
+            try {
+                let { data: prodData } = await _supabase.from('products').select('*');
+                if (prodData && prodData.length > 0) {
+                    marketplaceProducts = prodData.map(p => ({
+                        id: p.id,
+                        title: p.title,
+                        priceNum: p.price_num,
+                        price: p.price_text,
+                        rating: p.rating || 5.0,
+                        reviewsCount: p.reviews_count || 1,
+                        seller: p.seller_name,
+                        phone: p.phone,
+                        img: p.image_url
+                    }));
+                    renderProducts();
+                }
+
+                let { data: workerData } = await _supabase.from('workers').select('*');
+                if (workerData && workerData.length > 0) {
+                    verifiedWorkers = workerData.map(w => ({
+                        id: w.id,
+                        name: w.name,
+                        role: w.role,
+                        rating: w.rating || 5.0,
+                        location: w.location,
+                        phone: w.phone,
+                        image_url: w.image_url
+                    }));
+                    renderWorkers();
+                }
+            } catch(err) {
+                console.log("Supabase Load Notice:", err);
+            }
+        }
+
+        function openWhatsApp(phone, msg) {
+            let cleanPhone = (phone || '0752278097').replace(/[^0-9]/g, '');
+            if (cleanPhone.startsWith('0')) cleanPhone = '94' + cleanPhone.substring(1);
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function renderProducts() {
+            document.getElementById('productsGrid').innerHTML = marketplaceProducts.map(p => `
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="relative">
+                            <img src="${p.img}" class="w-full h-48 object-cover" alt="Product">
+                            <span class="absolute top-2 right-2 bg-sky-600 text-white font-black text-[10px] px-2 py-0.5 rounded-full shadow-md">${p.seller}</span>
+                        </div>
+                        <div class="p-4 space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-600">${p.rating} ⭐ (${p.reviewsCount} reviews)</span>
+                                <button onclick="rateProduct('${p.id}')" class="text-[10px] bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded font-bold">Rate</button>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 leading-snug line-clamp-2">${p.title}</h3>
+                            <p class="text-lg font-black text-slate-900 mt-2">${p.price}</p>
+                            <p class="text-[10px] text-emerald-600 font-bold">5% Company Cut: LKR ${(p.priceNum * 0.05).toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0 space-y-2">
+                        <button type="button" onclick="buyProduct('${p.id}', ${p.priceNum}, '${p.title}', '${p.phone}')" class="w-full py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm">💳 Pay Securely via Card</button>
+                        <button type="button" onclick="openWhatsApp('${p.phone}', 'Hello, I want to purchase: ${p.title}')" class="w-full py-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-[11px] rounded-xl">💬 WhatsApp Order</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function buyProduct(id, priceNum, title, phone) {
+            let commission = priceNum * 0.05;
+            totalCompanyRevenue += commission;
+            document.getElementById('totalCompanyRevenue').innerText = `LKR ${totalCompanyRevenue.toFixed(2)}`;
+            alert(`Secure Card Payment Simulated Successfully!\n5% Commission (LKR ${commission.toFixed(2)}) processed for VK Nexus.`);
+            openWhatsApp(phone, `Hello, I successfully paid via secure card for: ${title} (${priceNum})`);
+        }
+
+        function rateProduct(id) {
+            let r = prompt("Enter your rating (1 to 5):");
+            let num = parseFloat(r);
+            if (num >= 1 && num <= 5) {
+                let p = marketplaceProducts.find(item => item.id === id);
+                if(p) {
+                    p.rating = ((p.rating * p.reviewsCount + num) / (p.reviewsCount + 1)).toFixed(1);
+                    p.reviewsCount += 1;
+                    renderProducts();
+                    alert("Thank you for your rating!");
+                }
+            } else {
+                alert("Please enter a valid number between 1 and 5.");
+            }
+        }
+
+        function renderServices() {
+            document.getElementById('servicesGrid').innerHTML = globalServices.map(s => `
+                <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex space-x-3 items-center cursor-pointer" onclick="openWhatsApp('0752278097', 'Hello, I want inquiry for ${s.name}.')">
+                    <img src="${s.img}" class="w-16 h-16 rounded-xl object-cover" alt="Service">
+                    <div>
+                        <span class="text-[9px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">${s.division}</span>
+                        <h3 class="font-bold text-slate-900 text-xs sm:text-sm mt-1">${s.name}</h3>
+                        <span class="text-[11px] font-bold text-sky-600">Open Division →</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderWorkers() {
+            verifiedWorkers.sort((a, b) => b.rating - a.rating);
+            document.getElementById('workersGrid').innerHTML = verifiedWorkers.map(w => `
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col justify-between shadow-xs relative">
+                    <div class="absolute top-3 right-3 bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+                        ⭐ ${w.rating} Rating
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <img src="${w.image_url}" class="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-200" alt="Worker">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">${w.name}</h3>
+                            <p class="text-xs font-bold text-indigo-600">${w.role}</p>
+                            <p class="text-xs text-slate-500 mt-1">📍 ${w.location}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex space-x-2">
+                        <button type="button" onclick="openWhatsApp('${w.phone}', 'Hello ${w.name}, I need your service division.')" class="flex-1 py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-xl">💬 WhatsApp</button>
+                        <a href="tel:${w.phone}" class="flex-1 text-center py-2 bg-slate-900 text-white text-xs font-bold rounded-xl">📞 Call</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function handleAddProductSubmit(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('prod-file');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    let rawPrice = document.getElementById('prod-price').value.trim();
+                    let formattedPrice = rawPrice.toLowerCase().includes('lkr') ? rawPrice : `LKR ${rawPrice}`;
+                    let numPrice = parseFloat(rawPrice.replace(/[^0-9.]/g, '')) || 1000;
+
+                    let newProduct = {
+                        title: document.getElementById('prod-title').value,
+                        price_num: numPrice,
+                        price_text: formattedPrice,
+                        rating: 5.0,
+                        reviews_count: 1,
+                        seller_name: document.getElementById('prod-seller').value,
+                        phone: document.getElementById('prod-phone').value,
+                        image_url: e.target.result
+                    };
+
+                    if (_supabase) {
+                        await _supabase.from('products').insert([newProduct]);
+                    }
+
+                    marketplaceProducts.unshift({
+                        id: "p" + (marketplaceProducts.length + 1),
+                        title: newProduct.title,
+                        priceNum: newProduct.price_num,
+                        price: newProduct.price_text,
+                        rating: 5.0,
+                        reviewsCount: 1,
+                        seller: newProduct.seller_name,
+                        phone: newProduct.phone,
+                        img: newProduct.image_url
+                    });
+
+                    renderProducts();
+                    closeModal('addProductModal');
+                    alert('Product listed & saved successfully!');
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert("Please select a product image.");
+            }
+        }
+
+        async function startCamera() {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById('webcamVideo').srcObject = videoStream;
+                document.getElementById('cameraOverlayText').innerText = "Camera Active";
+            } catch(e) { alert("Camera permission required."); }
+        }
+
+        function takeSnapshot() {
+            const video = document.getElementById('webcamVideo');
+            const canvas = document.getElementById('photoCanvas');
+            canvas.width = video.videoWidth || 320;
+            canvas.height = video.videoHeight || 240;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImageData = canvas.toDataURL('image/png');
+            canvas.classList.remove('hidden');
+            video.classList.add('hidden');
+            document.getElementById('cameraOverlayText').innerText = "✓ Photo Captured";
+            stopCamera();
+        }
+
+        function stopCamera() { if (videoStream) { videoStream.getTracks().forEach(t => t.stop()); videoStream = null; } }
+
+        async function handleRegisterSubmit(e) {
+            e.preventDefault();
+            if(!capturedImageData) { alert("Capture live photo first."); return; }
+
+            let newWorker = {
+                name: document.getElementById('reg-name').value,
+                role: document.getElementById('reg-skill').value,
+                rating: 5.0,
+                location: document.getElementById('reg-location').value,
+                phone: document.getElementById('reg-phone').value,
+                image_url: capturedImageData
+            };
+
+            if (_supabase) {
+                await _supabase.from('workers').insert([newWorker]);
+            }
+
+            verifiedWorkers.unshift(newWorker);
+            renderWorkers();
+            closeModal('registerModal');
+            stopCamera();
+            alert('Provider Registered & saved successfully!');
+        }
+
+        function handleSearch() { alert('Searching: ' + document.getElementById('searchInput').value); }
+
+        loadFromSupabase();
+        renderProducts();
+        renderServices();
+        renderWorkers();
+    </script>
+</body>
+</html>
