@@ -8,11 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase Official SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-  const SUPABASE_URL = 'https://iwxosmqxiugjlhpbcsek.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_7ZkMV9YoRS3r7hX2vTGOYQ_JDABFey5';
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-</script>
     <!-- Google Translate Official Widget SDK -->
     <script="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
@@ -81,6 +76,7 @@
             </div>
         </div>
     </header>
+
     <!-- HERO SECTION -->
     <section class="relative bg-slate-900 text-white py-12 lg:py-16 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
@@ -102,7 +98,7 @@
                     <p class="text-xs text-slate-400">Total 5% Company Commission Earned:</p>
                     <p id="totalCompanyRevenue" class="text-2xl font-black text-emerald-400">LKR 0.00</p>
                 </div>
-                <button type=button onclick="openModal('addProductModal')" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl transition-all">
+                <button type="button" onclick="openModal('addProductModal')" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl transition-all">
                     + Free Product Listing
                 </button>
             </div>
