@@ -7,12 +7,26 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase Official SDK -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <!-- Google Translate Official Widget SDK -->
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- PayHere Official JavaScript SDK -->
-    <script type="text/javascript" src="https://www.payhere.lk/payhere.js"></script>
+    <!-- Supabase Official SDK & Initialization -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://iwxosmqxiugjlhpbcsek.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_7ZkMV9YoRS3r7hX2vTGOYQ_JDABFey5';
+  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 
+<!-- Google Translate Official Widget SDK -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,ta,si,hi,ar,fr,de,es,zh-CN,ms',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Sinhala', sans-serif; top: 0px !important; }
