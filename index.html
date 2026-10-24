@@ -8,11 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase Official SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-  const SUPABASE_URL = 'https://iwxosmqxiugjlhpbcsek.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_7ZkMV9YoRS3r7hX2vTGOYQ_JDABFey5';
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-</script>
     <!-- Google Translate Official Widget SDK -->
     <script="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
@@ -254,8 +249,8 @@
     </div>
 
     <!-- JAVASCRIPT & SUPABASE LOGIC -->
-    
-    function googleTranslateElementInit() {
+    <script>
+        function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
